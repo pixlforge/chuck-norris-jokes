@@ -15,7 +15,7 @@ class JokeFactory
     /**
      * Guzzle client property.
      *
-     * @var GuzzleHttp\Client $client
+     * @var GuzzleHttp\Client
      */
     protected $client;
 

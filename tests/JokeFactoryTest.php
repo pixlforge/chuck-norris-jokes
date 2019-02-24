@@ -3,11 +3,11 @@
 namespace Pixlforge\ChuckNorrisJokes\Tests;
 
 use GuzzleHttp\Client;
-use PHPUnit\Framework\TestCase;
-use Pixlforge\ChuckNorrisJokes\JokeFactory;
-use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
+use PHPUnit\Framework\TestCase;
+use GuzzleHttp\Handler\MockHandler;
+use Pixlforge\ChuckNorrisJokes\JokeFactory;
 
 class JokeFactoryTest extends TestCase
 {
@@ -15,7 +15,7 @@ class JokeFactoryTest extends TestCase
     public function it_returns_a_random_joke()
     {
         $mock = new MockHandler([
-            new Response(200, [], '{ "type": "success", "value": { "id": 460, "joke": "The only pattern Chuck Norris knows is God Object.", "categories": ["nerdy"] } }')
+            new Response(200, [], '{ "type": "success", "value": { "id": 460, "joke": "The only pattern Chuck Norris knows is God Object.", "categories": ["nerdy"] } }'),
         ]);
 
         $handler = HandlerStack::create($mock);
