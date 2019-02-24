@@ -11,7 +11,7 @@ class JokeFactory
         'Chuck Norris is not hung like a horse... horses are hung like Chuck Norris.',
         'Time waits for no man. Unless that man is Chuck Norris.',
         'Chuck Norris can judge a book by its cover.',
-        "Chuck Norris doesn't read books. He stares them down until he gets the information he wants."
+        "Chuck Norris doesn't read books. He stares them down until he gets the information he wants.",
     ];
 
     public function __construct(array $jokes = null)
@@ -20,7 +20,7 @@ class JokeFactory
             $this->jokes = $jokes;
         }
     }
-    
+
     public function getRandomJoke()
     {
         return $this->jokes[array_rand($this->jokes)];
