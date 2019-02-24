@@ -2,27 +2,39 @@
 
 namespace Pixlforge\ChuckNorrisJokes;
 
+use GuzzleHttp\Client;
+use function GuzzleHttp\json_decode;
+
 class JokeFactory
 {
-    protected $jokes = [
-        'Chuck Norris counted to infinity... Twice.',
-        "Chuck Norris' tears cure cancer. Too bad he has never cried.",
-        'There is no theory of evolution. Just a list of animals Chuck Norris allows to live.',
-        'Chuck Norris is not hung like a horse... horses are hung like Chuck Norris.',
-        'Time waits for no man. Unless that man is Chuck Norris.',
-        'Chuck Norris can judge a book by its cover.',
-        "Chuck Norris doesn't read books. He stares them down until he gets the information he wants.",
-    ];
+    /**
+     * The API endpoint.
+     */
+    const API_ENDPOINT = 'http://api.icndb.com/jokes/random';
 
-    public function __construct(array $jokes = null)
+    /**
+     * Guzzle client property.
+     *
+     * @var GuzzleHttp\Client $client
+     */
+    protected $client;
+
+    /**
+     * JokeFactory constructor.
+     *
+     * @param Client $client
+     */
+    public function __construct(Client $client = null)
     {
-        if ($jokes) {
-            $this->jokes = $jokes;
-        }
+        $this->client = $client ?: new Client();
     }
 
     public function getRandomJoke()
     {
-        return $this->jokes[array_rand($this->jokes)];
+        $response = $this->client->get(self::API_ENDPOINT);
+
+        $joke = json_decode($response->getBody()->getContents());
+
+        return $joke->value->joke;
     }
 }

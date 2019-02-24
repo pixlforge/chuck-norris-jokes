@@ -9,7 +9,9 @@
             "email": "celien@pixlforge.ch"
         }
     ],
-    "require": {},
+    "require": {
+        "guzzlehttp/guzzle": "^6.3"
+    },
     "require-dev": {
         "phpunit/phpunit": "^8.0"
     },
