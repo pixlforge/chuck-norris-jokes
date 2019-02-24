@@ -1,6 +1,6 @@
 <?php
 
-namespace Pixlforge\ChuckNorrisJokes;
+namespace Pixlforge\ChuckNorrisJokes\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
