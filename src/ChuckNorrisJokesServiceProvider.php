@@ -7,6 +7,11 @@ use Pixlforge\ChuckNorrisJokes\Console\ChuckNorrisJoke;
 
 class ChuckNorrisJokesServiceProvider extends ServiceProvider
 {
+    /**
+     * The package boot method.
+     *
+     * @return void
+     */
     public function boot()
     {
         if ($this->app->runningInConsole()) {
@@ -16,6 +21,11 @@ class ChuckNorrisJokesServiceProvider extends ServiceProvider
         }
     }
 
+    /**
+     * The package register method.
+     *
+     * @return void
+     */
     public function register()
     {
         $this->app->bind('chuck-norris', function () {
