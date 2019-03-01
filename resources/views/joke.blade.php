@@ -7,6 +7,8 @@
   <title>Chuck Norris Jokes</title>
 </head>
 <body>
-    
+  <main>
+    <h1>{{ $joke }}</h1>
+  </main>
 </body>
 </html>
