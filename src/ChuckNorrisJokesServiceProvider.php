@@ -16,10 +16,10 @@ class ChuckNorrisJokesServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->registerRoutes();
         $this->registerCommand();
         $this->loadViews();
         $this->publishResources();
-        $this->registerRoutes();
     }
 
     /**
@@ -32,8 +32,35 @@ class ChuckNorrisJokesServiceProvider extends ServiceProvider
         $this->app->bind('chuck-norris', function () {
             return new JokeFactory();
         });
+
+        $this->registerConfig();
     }
 
+    /**
+     * Register and merge the config files.
+     *
+     * @return void
+     */
+    protected function registerConfig()
+    {
+        $this->mergeConfigFrom(__DIR__ . '/../config/chuck-norris.php', 'chuck-norris');
+    }
+
+    /**
+     * Register the package specific routes.
+     *
+     * @return void
+     */
+    protected function registerRoutes()
+    {
+        Route::get(config('chuck-norris.route'), ChuckNorrisController::class)->name('chuck-norris');
+    }
+
+    /**
+     * Register the package artisan commands.
+     *
+     * @return void
+     */
     protected function registerCommand()
     {
         if ($this->app->runningInConsole()) {
@@ -43,20 +70,29 @@ class ChuckNorrisJokesServiceProvider extends ServiceProvider
         }
     }
 
+    /**
+     * Load the package views.
+     *
+     * @return void
+     */
     protected function loadViews()
     {
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'chuck-norris');
     }
 
+    /**
+     * Publish the package resources.
+     *
+     * @return void
+     */
     protected function publishResources()
     {
         $this->publishes([
             __DIR__ . '/../resources/views' => resource_path('views/vendor/chuck-norris')
-        ]);
-    }
+        ], 'views');
 
-    protected function registerRoutes()
-    {
-        Route::get('/chuck-norris', ChuckNorrisController::class)->name('chuck-norris');
+        $this->publishes([
+            __DIR__ . '/../config/chuck-norris.php' => base_path('config/chuck-norris.php')
+        ], 'config');
     }
 }
