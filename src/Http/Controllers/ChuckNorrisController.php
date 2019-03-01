@@ -10,7 +10,7 @@ class ChuckNorrisController extends Controller
     public function __invoke()
     {
         return view('chuck-norris::joke', [
-            'joke' => ChuckNorris::getRandomJoke()
+            'joke' => ChuckNorris::getRandomJoke(),
         ]);
     }
 }
