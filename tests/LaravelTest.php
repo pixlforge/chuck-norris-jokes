@@ -36,7 +36,7 @@ class LaravelTest extends TestCase
 
         $output = Artisan::output();
 
-        $this->assertSame('some joke'.PHP_EOL, $output);
+        $this->assertSame('some joke' . PHP_EOL, $output);
     }
 
     /** @test */
@@ -49,5 +49,7 @@ class LaravelTest extends TestCase
         $response = $this->get(route('chuck-norris'));
 
         $response->assertOk();
+        $response->assertViewIs('chuck-norris::joke');
+        $response->assertViewHas('joke', 'some joke');
     }
 }
