@@ -16,15 +16,10 @@ class ChuckNorrisJokesServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if ($this->app->runningInConsole()) {
-            $this->commands([
-                ChuckNorrisJoke::class,
-            ]);
-        }
-
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'chuck-norris');
-
-        Route::get('/chuck-norris', ChuckNorrisController::class)->name('chuck-norris');
+        $this->registerCommand();
+        $this->loadViews();
+        $this->publishResources();
+        $this->registerRoutes();
     }
 
     /**
@@ -37,5 +32,31 @@ class ChuckNorrisJokesServiceProvider extends ServiceProvider
         $this->app->bind('chuck-norris', function () {
             return new JokeFactory();
         });
+    }
+
+    protected function registerCommand()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                ChuckNorrisJoke::class,
+            ]);
+        }
+    }
+
+    protected function loadViews()
+    {
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'chuck-norris');
+    }
+
+    protected function publishResources()
+    {
+        $this->publishes([
+            __DIR__ . '/../resources/views' => resource_path('views/vendor/chuck-norris')
+        ]);
+    }
+
+    protected function registerRoutes()
+    {
+        Route::get('/chuck-norris', ChuckNorrisController::class)->name('chuck-norris');
     }
 }
